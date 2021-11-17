@@ -20,7 +20,7 @@ export default {
 	},
 	head() {
 		return {
-			title: 'Git stats',
+			title: 'Git Stats',
 			meta: [
 				{
 					charset: 'utf-8'

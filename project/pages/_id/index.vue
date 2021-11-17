@@ -2,23 +2,49 @@
   <div id="wrapper">
 		<div class="repo-info">
 			<p class="repo-info-title" v-text="title"></p>
-			<p class="repo-info-subtitle" v-text="this.repository.repo_info.full_name"></p>
+			<p class="repo-info-subtitle" v-text="fullName"></p>
 			<div class="repo-info-description" v-if="hasDescription" v-text="this.repository.repo_info.description"></div>
 			<div class="repo-info-details">
-				<p class="repo-info-detail" v-text="`Language: ${this.repository.repo_info.language}`"></p>
-				<p class="repo-info-detail" v-text="`Watchers: ${this.repository.repo_info.watchers}`"></p>
-				<p class="repo-info-detail" v-text="`Stargazers: ${this.repository.repo_info.stargazers_count}`"></p>
-				<p class="repo-info-detail" v-text="`Subscribers: ${this.repository.repo_info.subscribers_count}`"></p>
-				<p class="repo-info-detail" v-html="`Total Clones:<br>${totalClones.count} (${totalClones.uniques} uniques)`"></p>
-				<p class="repo-info-detail" v-html="`Total Views:<br>${totalViews.count} (${totalViews.uniques} uniques)`"></p>
+				<div class="repo-info-detail">
+					<img class="repo-info-detail-icon" src="/icons/align-left.svg" alt="Language">
+					<p class="repo-info-detail-text" v-text="`Language: ${this.repository.repo_info.language}`"></p>
+				</div>
+				<div class="repo-info-detail">
+					<img class="repo-info-detail-icon" src="/icons/eye.svg" alt="Watchers">
+					<p class="repo-info-detail-text" v-text="`Watchers: ${this.repository.repo_info.watchers}`"></p>
+				</div>
+				<div class="repo-info-detail">
+					<img class="repo-info-detail-icon" src="/icons/star.svg" alt="Stargazers">
+					<p class="repo-info-detail-text" v-text="`Stargazers: ${this.repository.repo_info.stargazers_count}`"></p>
+				</div>
+				<div class="repo-info-detail">
+					<img class="repo-info-detail-icon" src="/icons/heart.svg" alt="Subscribers">
+					<p class="repo-info-detail-text" v-text="`Subscribers: ${this.repository.repo_info.subscribers_count}`"></p>
+				</div>
+			</div>
+			<div class="repo-info-clones-views">
+				<div class="repo-info-clones-views-item">
+					<img class="repo-info-clones-views-item-icon" src="/icons/download.svg" alt="Clones">
+					<p class="repo-info-clones-views-item-text" v-text="`Total Clones: ${totalClones.count} (${totalClones.uniques} uniques)`"></p>
+				</div>
+				<div class="repo-info-clones-views-item">
+					<img class="repo-info-clones-views-item-icon" src="/icons/eye.svg" alt="Views">
+					<p class="repo-info-clones-views-item-text" v-text="`Total Views: ${totalViews.count} (${totalViews.uniques} uniques)`"></p>
+				</div>
 			</div>
 			<div class="repo-info-dates">
-				<p class="repo-info-date" v-text="`Created: ${createdAt}`"></p>
-				<p class="repo-info-date" v-text="`Updated: ${updatedAt}`"></p>
+				<div class="repo-info-date">
+					<img class="repo-info-date-icon" src="/icons/clock.svg" alt="Created">
+					<p class="repo-info-date-text" v-text="`Created: ${createdAt}`"></p>
+				</div>
+				<div class="repo-info-date">
+					<img class="repo-info-date-icon" src="/icons/clock.svg" alt="Updated">
+					<p class="repo-info-date-text" v-text="`Updated: ${updatedAt}`"></p>
+				</div>
 			</div>
 			<div class="repo-info-links">
 				<a class="repo-info-link" :href="this.repository.repo_info.html_url" target="_blank">
-					<img class="repo-info-link-icon" src="/icons/github.svg" alt="GitHub">
+					<img class="repo-info-link-icon" src="/icons/github2.svg" alt="GitHub">
 					<p class="repo-info-link-text">GitHub</p>
 				</a>
 				<a class="repo-info-link" :href="this.repository.repo_info.homepage" v-if="hasHomepage" target="_blank">
@@ -113,6 +139,7 @@ export default {
 		}
 	},
 	computed: {
+		fullName: function() { return this.repository.repo_info.full_name.replace("/", " / ") },
 		hasClones: function() { return this.repository.clones.length },
 		hasViews: function() { return this.repository.views.length },
 		hasHomepage: function() { return this.repository.repo_info.homepage !== null },
@@ -269,7 +296,7 @@ export default {
 		border-radius: 0.25rem
 		margin: 0.5rem auto
 		padding: 0.5rem
-		max-width: 50rem
+		max-width: 60rem
 		background: var(--theme-itemWhite)
 		box-shadow: var(--theme-boxShadow)
 		.repo-info-title
@@ -285,34 +312,79 @@ export default {
 			@include flexCenter
 		.repo-info-details
 			@include flexCenter
+			align-items: stretch
 			justify-content: space-around
-			max-width: 40rem
 			margin: 0 auto
 			.repo-info-detail
 				flex: 1
 				text-align: center
-				flex-basis: 10rem
+				flex-basis: 49%
 				padding: 0.5rem
 				@include flexCenter
+				@media (max-width: 32rem)
+					flex-direction: column
+				@media (min-width: 50rem)
+					flex-basis: 10rem
+				.repo-info-detail-icon
+					height: 1.5rem
+					width: 1.5rem
+					margin: 0 0.5rem
+					filter: var(--theme-icon)
+				.repo-info-detail-text
+					line-height: 1.25rem
+		.repo-info-clones-views
+			@include flexCenter
+			justify-content: space-around
+			align-items: stretch
+			.repo-info-clones-views-item
+				flex: 1
+				text-align: center
+				padding: 0.5rem
+				@include flexCenter
+				@media (max-width: 36rem)
+					flex-direction: column
+				.repo-info-clones-views-item-icon
+					height: 1.5rem
+					width: 1.5rem
+					margin: 0 0.5rem
+					filter: var(--theme-icon)
+				.repo-info-clones-views-item-text
+					line-height: 1.25rem
 		.repo-info-dates
 			@include flexCenter
 			justify-content: space-around
+			align-items: stretch
 			.repo-info-date
+				flex: 1
+				text-align: center
+				@include flexCenter
 				padding: 0.5rem
+				@media (max-width: 36rem)
+					flex-direction: column
+				&:nth-child(2)
+					.repo-info-date-icon
+						transform: scaleX(-1)
+				.repo-info-date-icon
+					height: 1.5rem
+					width: 1.5rem
+					margin: 0 0.5rem
+					filter: var(--theme-icon)
+				.repo-info-date-text
+					line-height: 1.25rem
 		.repo-info-description
 			@include flexCenter
 			padding: 1rem
-			text-indent: 0.5rem
-			font-size: 1.25rem
 			line-height: 1.5rem
+			text-indent: 0.5rem
+			@media (min-width: 35rem)
+				font-size: 1.25rem
 		.repo-info-links
 			@include flexCenter
-			max-width: 23rem
 			margin: 0 auto
 			.repo-info-link
 				@include flexCenter
-				justify-content: space-around
-				flex-basis: 10rem
+				flex: 1
+				max-width: 15rem
 				margin: 0.5rem
 				padding: 0.25rem
 				text-decoration: none
@@ -322,13 +394,14 @@ export default {
 					.repo-info-link-icon
 						transform: scale(1.25)
 				.repo-info-link-icon
-					width: 2rem
-					height: 2rem
-					margin: 0.5rem
-					transition: all 0.1s ease-in-out
+					width: 1.5rem
+					height: 1.5rem
+					margin: 0 0.5rem
+					transition: transform 0.1s ease-in-out, filter 0.2s ease-in-out
 					filter: var(--theme-icon)
 				.repo-info-link-text
 					padding: 0.5rem
+					line-height: 1.25rem
 	.charts
 		background: var(--theme-whiteBG)
 		border-radius: 0.25rem
