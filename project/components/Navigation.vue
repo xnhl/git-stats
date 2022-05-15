@@ -5,7 +5,7 @@
 		</div>
 		<div id="section-two" class="nav-section">
 			<div class="theme-icon-wrapper" @click="toggleTheme">
-				<img class="theme-icon" src="/icons/sun.svg">
+				<img class="theme-icon" :src="sunIcon">
 			</div>
 		</div>
 	</div>
@@ -14,15 +14,14 @@
 <script>
 export default {
 	name: 'Navigation',
-	data () {
-		return {
-			scroll_old: 0,
-			scroll_new: 0
-		}
-	},
+	data: () => ({
+		scroll_old: 0,
+		scroll_new: 0,
+		sunIcon: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJmZWF0aGVyIGZlYXRoZXItc3VuIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSI1Ij48L2NpcmNsZT48bGluZSB4MT0iMTIiIHkxPSIxIiB4Mj0iMTIiIHkyPSIzIj48L2xpbmU+PGxpbmUgeDE9IjEyIiB5MT0iMjEiIHgyPSIxMiIgeTI9IjIzIj48L2xpbmU+PGxpbmUgeDE9IjQuMjIiIHkxPSI0LjIyIiB4Mj0iNS42NCIgeTI9IjUuNjQiPjwvbGluZT48bGluZSB4MT0iMTguMzYiIHkxPSIxOC4zNiIgeDI9IjE5Ljc4IiB5Mj0iMTkuNzgiPjwvbGluZT48bGluZSB4MT0iMSIgeTE9IjEyIiB4Mj0iMyIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjIxIiB5MT0iMTIiIHgyPSIyMyIgeTI9IjEyIj48L2xpbmU+PGxpbmUgeDE9IjQuMjIiIHkxPSIxOS43OCIgeDI9IjUuNjQiIHkyPSIxOC4zNiI+PC9saW5lPjxsaW5lIHgxPSIxOC4zNiIgeTE9IjUuNjQiIHgyPSIxOS43OCIgeTI9IjQuMjIiPjwvbGluZT48L3N2Zz4="
+	}),
 	methods: {
-		toggleTheme: function() { this.$emit("toggle-theme") },
-		handleScroll: function() {
+		toggleTheme() { this.$emit("toggle-theme") },
+		handleScroll() {
 			let y = window.scrollY
 			this.scroll_new = y
 			let nav_wrapper = document.getElementById("nav-wrapper")

@@ -1,12 +1,11 @@
 <template>
-  <div></div>
+	<div></div>
 </template>
 
 <script>
 export default {
-  mounted() { this.$router.go(-1) }
+	mounted() { this.$router.go("/") }
 }
 </script>
 
-<style lang="sass">
-</style>
+<style></style>
